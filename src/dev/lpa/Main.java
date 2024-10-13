@@ -11,9 +11,9 @@ public class Main {
   public static void main(String[] args) {
 
     Path path = Path.of("this/is/several/folders/testing.txt");
-    printPathInfo(path);
+//    printPathInfo(path);
     logStatement(path);
-
+    extraInfo(path);
   }
 
   private static void printPathInfo(Path path) {
@@ -55,6 +55,16 @@ public class Main {
         StandardOpenOption.APPEND);
     } catch (IOException e) {
       e.printStackTrace();
+    }
+  }
+
+  private static void extraInfo(Path path) {
+
+    try {
+      var atts = Files.readAttributes(path, "*");
+      atts.entrySet().forEach(System.out::println);
+    } catch (IOException e) {
+      System.out.println("Problem getting attributes.");
     }
   }
 }
