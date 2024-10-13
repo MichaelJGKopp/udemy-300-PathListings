@@ -25,10 +25,15 @@ public class Main {
     System.out.println();
 
     System.out.println(absolutePath.getRoot());
-    int i = 1;
-    var it = path.toAbsolutePath().iterator(); // NOTE: loop through directory tree
-    while (it.hasNext()) {
-      System.out.println(".".repeat(i++) + " " + it.next());
+//    int i = 1;
+//    var it = path.toAbsolutePath().iterator(); // NOTE: loop through directory tree
+//    while (it.hasNext()) {
+//      System.out.println(".".repeat(i++) + " " + it.next());
+//    }
+
+    int pathParts = absolutePath.getNameCount();  // depth of directory tree, start at root with absolute path
+    for (int i = 0; i < pathParts; i++) {
+      System.out.println(".".repeat(i + 1) + " " +  absolutePath.getName(i));
     }
     System.out.println("-------------------------------------------");
   }
