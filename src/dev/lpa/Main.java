@@ -22,6 +22,14 @@ public class Main {
     System.out.println("Absolute Path Root: = " + absolutePath.getRoot());
     System.out.println("Root = " + path.getRoot()); // if null is relative path
     System.out.println("isAbsolute = " + path.isAbsolute());
+    System.out.println();
+
+    System.out.println(absolutePath.getRoot());
+    int i = 1;
+    var it = path.toAbsolutePath().iterator(); // NOTE: loop through directory tree
+    while (it.hasNext()) {
+      System.out.println(".".repeat(i++) + " " + it.next());
+    }
     System.out.println("-------------------------------------------");
   }
 }
