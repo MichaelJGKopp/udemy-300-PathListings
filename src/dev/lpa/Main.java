@@ -1,14 +1,18 @@
 package dev.lpa;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.time.Instant;
 
 public class Main {
 
   public static void main(String[] args) {
 
-    Path path = Path.of("files/testing.txt");
+    Path path = Path.of("this/is/several/folders/testing.txt");
     printPathInfo(path);
-
+    logStatement(path);
 
   }
 
@@ -31,10 +35,26 @@ public class Main {
 //      System.out.println(".".repeat(i++) + " " + it.next());
 //    }
 
-    int pathParts = absolutePath.getNameCount();  // depth of directory tree, start at root with absolute path
+    int pathParts = absolutePath.getNameCount();  // depth of directory tree, start at root with
+    // absolute path
     for (int i = 0; i < pathParts; i++) {
-      System.out.println(".".repeat(i + 1) + " " +  absolutePath.getName(i));
+      System.out.println(".".repeat(i + 1) + " " + absolutePath.getName(i));
     }
     System.out.println("-------------------------------------------");
+  }
+
+  private static void logStatement(Path path) {
+
+    try {
+      Path parent = path.getParent();
+      if (!Files.exists(parent)) {
+        Files.createDirectories(parent);  // instead of Files.createDirectory(parent);
+      }
+      Files.writeString(path, Instant.now() + ": hello file world\n",
+        StandardOpenOption.CREATE,
+        StandardOpenOption.APPEND);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }
